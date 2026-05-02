@@ -1,6 +1,9 @@
 "use client"
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import React from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import { useSearchParams } from "next/navigation";
+
 
 export default function Home() {
   const [inputVal, setIinputVal] = useState("linktr.ee/")
@@ -33,7 +36,7 @@ export default function Home() {
     6: ['/page5_5.WEBP', 90, 150, false],
     7: ['/page5_6.WEBP', 110, 75, true],
   }
-  
+
   const DisplayDict_5th = { ...Page5thDict, 8: Page5thDict[1], 9: Page5thDict[2], 10: Page5thDict[3], 11: Page5thDict[4] }
   const page5Item_width = 380
 
@@ -173,7 +176,6 @@ export default function Home() {
 
 
   const handelChange = (e) => {
-    console.log(e.target.value)
     if (e.target.value === "linktr.ee") {
       return
     }
@@ -183,7 +185,6 @@ export default function Home() {
   }
 
   const LastInputChange = (e) => {
-    console.log(e.target.value)
     if (e.target.value === "linktr.ee") {
       return
     }
@@ -226,7 +227,6 @@ export default function Home() {
 
   const handelFaq = (id) => {
     setshowfaqOne((prev) => prev == id ? null : id);
-    console.log(showfaqOne)
   }
 
   const FAQ = {
@@ -298,8 +298,20 @@ export default function Home() {
   }
 
 
+  const searchParams = useSearchParams();
+  const msg = searchParams.get("message");
+
+  useEffect(() => {
+    if (msg === "Login Required") {
+      toast.error("login is required");
+      window.history.replaceState({}, "", "/");
+    }
+  }, [msg])
+
+
   return (
     <>
+      <ToastContainer />
       <main className="lg:h-[140vh] min-h-screen w-full bg-[#d2e823] lg:grid lg:grid-cols-2">
         <section className=" lg:ml-[5vw] flex flex-col justify-center items-center lg:items-start">
           <div className="lg:text-[70px] mt-[20vh] lg:mt-0 text-[35px] text-[#254f1a] leading-none font-extrabold flex flex-col gap-1">
@@ -313,7 +325,7 @@ export default function Home() {
 
           <div className="mt-9 w-[90%] lg:w-full h-[10vh] lg:flex lg:gap-2 lg:items-center">
             <input className="h-[8vh] w-full block mb-4 lg:mb-0 lg:w-[40%] p-2 text-lg outline-[#d1cfcf] text-gray-600 font-bold bg-white rounded-md" type="text" onChange={(e) => handelChange(e)} value={inputVal} />
-            <button className="h-[8vh] w-[90%] mx-auto lg:mx-0 block cursor-pointer lg:w-[40%] p-2 text-lg font-bold bg-[#254f1a] text-white rounded-full">Get Started for Free</button>
+            <button disabled className="h-[8vh] w-[90%] mx-auto lg:mx-0 block disabled:cursor-not-allowed cursor-pointer lg:w-[40%] p-2 text-lg font-bold bg-[#254f1a] text-white rounded-full">Get Started for Free</button>
           </div>
         </section>
 
@@ -322,7 +334,7 @@ export default function Home() {
         <section className="h-[50vh] mt-[10vh] lg:mt-0 lg:h-[140vh] overflow-clip">
           <div className="flex items-center lg:flex-col"
             style={{
-              transform: `${transition_Dir? `translateY(-${index * itemHeight}px)`:`translateX(-${index * 100}%)`}`,
+              transform: `${transition_Dir ? `translateY(-${index * itemHeight}px)` : `translateX(-${index * 100}%)`}`,
               transition: `${isTransitioning ? "transform 0.5s ease-in-out" : "none"}`
             }}>
             {dispayImages.map((src, i) => (
@@ -356,7 +368,7 @@ export default function Home() {
             <span> one link in bio. Customize every detail or let Linktree automatically enhance</span>
             <span> it to match your brand and drive more clicks.</span>
           </div>
-          <button className="h-[8vh] lg:w-[40%] w-[70%] mx-auto lg:mx-0 lg:p-2 p-4 lg:text-lg font-semibold bg-[#d2e823] cursor-pointer rounded-full">Get Started for Free</button>
+          <button disabled className="h-[8vh] lg:w-[40%] w-[70%] mx-auto lg:mx-0 lg:p-2 p-4 lg:text-lg disabled:cursor-not-allowed font-semibold bg-[#d2e823] cursor-pointer rounded-full">Get Started for Free</button>
         </section>
       </div>
 
@@ -370,7 +382,7 @@ export default function Home() {
             <span>audience. Then use your QR code to drive your offline traffic back to your link in </span>
             <span>bio.</span>
           </div>
-          <button className="h-[8vh] lg:w-[40%] w-[70%] mx-auto lg:mx-0 p-2 lg:text-lg font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Get Started for Free</button>
+          <button disabled className="h-[8vh] lg:w-[40%] disabled:cursor-not-allowed w-[70%] mx-auto lg:mx-0 p-2 lg:text-lg font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Get Started for Free</button>
         </section>
         <section className="flex justify-center items-center">
           <video className="h-[80%] w-auto mix-blend-screen" autoPlay playsInline loop muted >
@@ -397,7 +409,7 @@ export default function Home() {
             <span> converting your audience. Make informed updates on the fly to keep them</span>
             <span> coming back.</span>
           </div>
-          <button className="h-[8vh] lg:w-[40%] w-[70%] mx-auto lg:mx-0 p-2 lg:text-lg font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Get Started for Free</button>
+          <button disabled className="h-[8vh] lg:w-[40%] disabled:cursor-not-allowed w-[70%] mx-auto lg:mx-0 p-2 lg:text-lg font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Get Started for Free</button>
         </section>
       </div>
 
@@ -473,7 +485,7 @@ export default function Home() {
             <span>The fast, friendly and</span>
             <span> powerful link in bio tool.</span>
           </h1>
-          <button className="h-[8vh] w-75 p-2 text-lg font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Explore all plans</button>
+          <button disabled className="h-[8vh] w-75 p-2 text-lg disabled:cursor-not-allowed font-semibold bg-[#e9c0e9] cursor-pointer rounded-full">Explore all plans</button>
         </section>
 
 
@@ -544,10 +556,10 @@ export default function Home() {
             <img src="/arrow-right-double-stroke-rounded.svg" alt="right arrow" />
           </button>
         </section>
-        <div className="h-[50px] w-full"></div>
+        <div className="h-12.5 w-full"></div>
       </div>
 
-      <div className="lg:min-h-[220vh] min-h-[100vh] pb-5 bg-[#780016]">
+      <div className="lg:min-h-[220vh] min-h-screen pb-5 bg-[#780016]">
 
         <h1 className="lg:pt-[15vh] pt-[5vh] lg:text-[60px] text-[36px] leading-none text-[#e9c0e9] font-extrabold text-center">Questions? Answered</h1>
 
@@ -574,7 +586,7 @@ export default function Home() {
             </div>
           ))}
         </section>
-        <div className="h-[50px] w-full"></div>
+        <div className="h-12.5 w-full"></div>
       </div>
 
       <div className="min-h-[220vh] overflow-clip pb-5 bg-[#502274] relative">
@@ -586,8 +598,8 @@ export default function Home() {
           <h1 className="lg:text-6xl text-[35px] leading-none font-extrabold text-center lg:w-full w-[90%] text-[#e9c0e9]">Jumpstart your corner of the internet today</h1>
 
           <div className="lg:flex h-[15vh] w-full lg:gap-2 lg:justify-center lg:items-center">
-            <input className="h-[8vh] block lg:w-[20%] w-[90%] mx-auto lg:mx-0 p-2 text-lg mt-[24px] lg:mt-0 outline-[#d1cfcf] text-gray-600 font-bold bg-white rounded-md" type="text" onChange={(e) => LastInputChange(e)} value={LastinputVal} />
-            <button className="h-[8vh] block cursor-pointer lg:w-[20%] w-[50%] mx-auto lg:mx-0 mt-[12px] lg:mt-0 p-2 text-lg font-bold bg-[#d2e823] text-[#2b2b2b] rounded-full">Claim your linktree</button>
+            <input className="h-[8vh] block lg:w-[20%] w-[90%] mx-auto lg:mx-0 p-2 text-lg mt-6 lg:mt-0 outline-[#d1cfcf] text-gray-600 font-bold bg-white rounded-md" type="text" onChange={(e) => LastInputChange(e)} value={LastinputVal} />
+            <button disabled className="h-[8vh] block disabled:cursor-not-allowed cursor-pointer lg:w-[20%] w-[50%] mx-auto lg:mx-0 mt-3 lg:mt-0 p-2 text-lg font-bold bg-[#d2e823] text-[#2b2b2b] rounded-full">Claim your linktree</button>
           </div>
         </section>
 
@@ -607,7 +619,7 @@ export default function Home() {
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Social Good</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Contact</p>
               </div>
-              <div className="flex flex-col mt-[25px] lg:mt-0 lg:gap-4 gap-2">
+              <div className="flex flex-col mt-6.25 lg:mt-0 lg:gap-4 gap-2">
                 <h2 className="font-bold text-2xl text-[#2b2b2b]">Community</h2>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Linktree for Enterprise</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">2023 Creator Report</p>
@@ -616,7 +628,7 @@ export default function Home() {
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Creator Profile Directory</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Explore Templates</p>
               </div>
-              <div className="flex flex-col mt-[25px] lg:mt-0 lg:gap-4 gap-2">
+              <div className="flex flex-col mt-6.25 lg:mt-0 lg:gap-4 gap-2">
                 <h2 className="font-bold text-2xl text-[#2b2b2b]">Support</h2>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Help Topics</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Getting Started</p>
@@ -625,7 +637,7 @@ export default function Home() {
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">FAQs</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Report a Violation</p>
               </div>
-              <div className="flex flex-col mt-[25px] lg:mt-0 lg:gap-4 gap-2">
+              <div className="flex flex-col mt-6.25 lg:mt-0 lg:gap-4 gap-2">
                 <h2 className="font-bold text-2xl text-[#2b2b2b]">Trust & Legal</h2>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Terms & Conditions</p>
                 <p className="text-sm font-semibold text-[#4f4d4d] cursor-pointer">Privacy Notice</p>
@@ -639,14 +651,14 @@ export default function Home() {
             </div>
 
             <div className="flex flex-col lg:flex-row lg:h-16 min-h-16 justify-between lg:items-center mt-[5vh] overflow-clip">
-              <div className="flex flex-col lg:flex-row gap-3 lg:items-center mt-[20px] lg:mt-0">
-                <button className='bg-[#eff0ec] h-15 w-fit cursor-pointer p-4 px-6 font-bold hover:bg-[#ebede4] rounded-lg'>Log In</button>
-                <button className="h-15 w-57.5 cursor-pointer p-2 text-lg font-semibold bg-[#d2e823] text-[#2b2b2b] rounded-full">Get Started for Free</button>
+              <div className="flex flex-col lg:flex-row gap-3 lg:items-center mt-5 lg:mt-0">
+                <button disabled className='bg-[#eff0ec] h-15 w-fit cursor-pointer disabled:cursor-not-allowed p-4 px-6 font-bold hover:bg-[#ebede4] rounded-lg'>Log In</button>
+                <button disabled className="h-15 w-57.5 cursor-pointer disabled:cursor-not-allowed p-2 text-lg font-semibold bg-[#d2e823] text-[#2b2b2b] rounded-full">Get Started for Free</button>
               </div>
 
-              <div className="flex gap-2 items-center h-16 mt-[20px] lg:mt-0">
-                <div className="lg:w-37.5 w-[75px] lg:h-full h-[70%] bg-[#1e2330] rounded-full flex justify-center items-center cursor-pointer"><img className="p-2 object-fit w-[80%]" src="/appleLogo.png" alt="apple logo" /></div>
-                <div className="lg:w-37.5 w-[75px] lg:h-full h-[70%] bg-[#1e2330] rounded-full flex justify-center items-center cursor-pointer"><img className="p-2 object-fit w-[80%]" src="/GoogleLogo.png" alt="google logo" /></div>
+              <div className="flex gap-2 items-center h-16 mt-5 lg:mt-0">
+                <div className="lg:w-37.5 w-18.75 lg:h-full h-[70%] bg-[#1e2330] rounded-full flex justify-center items-center cursor-pointer"><img className="p-2 object-fit w-[80%]" src="/appleLogo.png" alt="apple logo" /></div>
+                <div className="lg:w-37.5 w-18.75 lg:h-full h-[70%] bg-[#1e2330] rounded-full flex justify-center items-center cursor-pointer"><img className="p-2 object-fit w-[80%]" src="/GoogleLogo.png" alt="google logo" /></div>
                 <div className="lg:h-16 h-8 w-8 lg:w-16 bg-[#1e2330] rounded-full flex justify-center items-center hover:bg-[#393c46] cursor-pointer"><img className="invert" src="/tree-01-stroke-rounded.svg" alt="linkTree logo" /></div>
                 <div className="lg:h-16 h-8 w-8 lg:w-16 bg-[#1e2330] rounded-full flex justify-center items-center hover:bg-[#393c46] cursor-pointer"><img className="invert" src="/at-stroke-rounded.svg" alt="@ logo" /></div>
                 <div className="lg:h-16 h-8 w-8 lg:w-16 bg-[#1e2330] rounded-full flex justify-center items-center hover:bg-[#393c46] cursor-pointer"><img className="invert" src="/tiktok-stroke-rounded.svg" alt="tiktok logo" /></div>

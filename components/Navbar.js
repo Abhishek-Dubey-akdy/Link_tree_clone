@@ -1,5 +1,7 @@
 "use client"
 import React, { useState, useRef, useEffect } from 'react'
+import { signIn, signOut } from "next-auth/react"
+import Link from 'next/link'
 
 const Navbar = () => {
     const [products, setProducts] = useState(false)
@@ -31,7 +33,7 @@ const Navbar = () => {
     const [translatePercent, setTranslatePercent] = useState(0)
 
 
-    
+
     const [width, SetWidth] = useState(null)
     const [navImg, setNavImg] = useState("/LinkTreeLogo.svg")
 
@@ -39,14 +41,14 @@ const Navbar = () => {
 
     useEffect(() => {
         let referenceScrollY = window.scrollY;
-        const tenPercent = window.innerHeight*0.1;
+        const tenPercent = window.innerHeight * 0.1;
 
         const handleScroll = () => {
             const currentScrollY = window.scrollY;
 
             const TotalScrolled = currentScrollY - referenceScrollY
 
-            if (TotalScrolled >= tenPercent*2) {
+            if (TotalScrolled >= tenPercent * 2) {
                 setHideNav(true)
                 setTranslatePercent(-200)
                 referenceScrollY = currentScrollY;
@@ -64,7 +66,7 @@ const Navbar = () => {
 
         SetWidth(window.innerWidth)
 
-        const handelResize = () => {SetWidth(window.innerWidth)};
+        const handelResize = () => { SetWidth(window.innerWidth) };
         window.addEventListener("resize", handelResize);
 
 
@@ -82,7 +84,7 @@ const Navbar = () => {
             setNavImg("/LinkTreeLogo.svg")
         }
     }, [width])
-    
+
 
 
 
@@ -90,31 +92,33 @@ const Navbar = () => {
     return (
         <>
             <nav className='flex z-20 justify-between items-center h-[8vh] w-[90vw] mx-auto fixed lg:top-[7.6vh] top-[3vh] left-[5vw] bg-white lg:py-10 lg:px-5 px-3 rounded-full'
-            style={{
-              transform: `translateY(${translatePercent}%)`,
-              transition: `transform 0.5s ease-in-out`
-            }}
+                style={{
+                    transform: `translateY(${translatePercent}%)`,
+                    transition: `transform 0.5s ease-in-out`
+                }}
             >
                 <div className='flex items-center gap-10'>
-                    <div className='flex justify-center items-center h-[60px] w-[60px] lg:h-[120px] lg:w-[120px]'><img className='cursor-pointer object-contain' src={navImg} alt="logo" /></div>
+                    <Link href="/">
+                        <div className='flex justify-center items-center h-15 w-15 lg:h-30 lg:w-30'><img className='cursor-pointer object-contain' src={navImg} alt="logo" /></div>
+                    </Link>
                     <ul className='hidden lg:visible lg:flex lg:gap-1 text-lg'>
                         <li onMouseEnter={() => handelEnter("products")} onMouseLeave={() => handelLeave("products")} className='p-2 px-3 cursor-pointer hover:bg-[#eff0ec] rounded-sm'>Products</li>
                         <li className='p-2 px-3 cursor-pointer hover:bg-[#eff0ec] rounded-sm'>templates</li>
                         <li className='p-2 px-3 cursor-pointer hover:bg-[#eff0ec] rounded-sm'>Marketplace</li>
                         <li onMouseEnter={() => handelEnter("learn")} onMouseLeave={() => handelLeave("learn")} className='p-2 px-3 cursor-pointer hover:bg-[#eff0ec] rounded-sm'>Learn</li>
-                        <li className='p-2 px-3 cursor-pointer hover:bg-[#eff0ec] rounded-sm'>Pricing</li>
+                        <li className='p-2 px-3 cursor-pointer hover:bg-[#e9fbb5] rounded-sm'><Link href={"/dashboard"}>Dashboard</Link></li>
                     </ul>
                 </div>
                 <div className='flex gap-4 '>
-                    <button className='bg-[#eff0ec] cursor-pointer p-2.5 lg:p-4 font-bold hover:bg-[#ebede4] rounded-lg'>Log In</button>
-                    <button className='bg-[#212634] cursor-pointer p-2.5 text-white hover:bg-[#2d3341] font-bold lg:p-4 rounded-full'>Sign up Free</button>
-                    <button className='cursor-pointer lg:hidden hover:bg-[#2d3341] rounded-full'><img src="/menu-01-stroke-rounded.svg" className='h-[70%] object-contain' alt="menu" /></button>
+                    <button onClick={async () => await signIn("google", { redirectTo: "/dashboard" })} className='bg-[#212634] cursor-pointer p-2.5 text-white hover:bg-[#2d3341] font-bold lg:p-4 rounded-full'>Sign In</button>
+                    <button onClick={async () => await signOut({ redirectTo: "/" })} className='bg-[#eff0ec] cursor-pointer p-2.5 lg:p-4 font-bold hover:bg-[#ebede4] rounded-lg'>Sign out</button>
+                    <button className='cursor-pointer lg:hidden hover:bg-[#2d3341] rounded-full'><Link href={"/dashboard"}><img src="/menu-01-stroke-rounded.svg" className='h-[70%] object-contain' alt="menu" /></Link></button>
                 </div>
             </nav>
 
 
             {/* this is the product section's dropdown*/}
-            <section onMouseEnter={() => handelEnter("products")} onMouseLeave={() => handelLeave("products")} className={` ${products ? "" : "hidden"} ${HideNav? "hidden": ""} z-20 bg-white h-[60vh] w-[80vw] p-3 rounded-2xl grid grid-cols-3 fixed top-[20vh] left-[10vw]`}>
+            <section onMouseEnter={() => handelEnter("products")} onMouseLeave={() => handelLeave("products")} className={` ${products ? "" : "hidden"} ${HideNav ? "hidden" : ""} z-20 bg-white h-[60vh] w-[80vw] p-3 rounded-2xl grid grid-cols-3 fixed top-[20vh] left-[10vw]`}>
                 <div className='flex flex-col gap-1'>
                     <div className='p-2 hover:bg-[#eff0ec] flex justify-between m-1 text-lg rounded-lg cursor-pointer'>
                         <div className='flex gap-2'>
@@ -215,7 +219,7 @@ const Navbar = () => {
 
 
             {/* this is the learn section's dropdown*/}
-            <section onMouseEnter={() => handelEnter("learn")} onMouseLeave={() => handelLeave("learn")} className={` ${learn ? "" : "hidden"} ${HideNav? "hidden": ""} h-[50vh] z-20 bg-white w-[80vw] p-3 rounded-2xl grid grid-cols-3 fixed top-[20vh] left-[10vw]`}>
+            <section onMouseEnter={() => handelEnter("learn")} onMouseLeave={() => handelLeave("learn")} className={` ${learn ? "" : "hidden"} ${HideNav ? "hidden" : ""} h-[50vh] z-20 bg-white w-[80vw] p-3 rounded-2xl grid grid-cols-3 fixed top-[20vh] left-[10vw]`}>
                 <div>
                     <div className='p-2 hover:bg-[#eff0ec] flex justify-between m-1 text-lg rounded-lg cursor-pointer'>
                         <div className='flex gap-2'>
