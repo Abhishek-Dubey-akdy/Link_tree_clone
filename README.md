@@ -5,7 +5,7 @@ A high-performance, clean "Link-in-Bio" platform built to centralize your digita
 ## 🚀 Demo
 ![Project Preview](./public/demoLinkTree.png)
 
-visit: https://youtu.be/xySmn5WAae4
+[📺 Watch the Video Demo here](https://youtu.be/xySmn5WAae4)
 
 ---
 
