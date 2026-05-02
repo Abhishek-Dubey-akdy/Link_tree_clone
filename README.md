@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🌳 LinkTree Clone
 
-## Getting Started
+A high-performance, clean "Link-in-Bio" platform built to centralize your digital identity. This isn't just a list of buttons; it's a deep dive into modern UI patterns and secure authentication.
 
-First, run the development server:
+## 🚀 Demo
+![Project Preview](./public/demoLinkTree.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+visit: 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🛠 Tech Stack
+| Frontend | Backend / Auth |
+| :--- | :--- |
+| React/Next.js | NextAuth.js |  
+| Tailwind | Google Cloud Console |  
+| react-toastify | mongodb |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ✨ Key Features & Technical Wins
 
-To learn more about Next.js, take a look at the following resources:
+I didn't just build a clone; I used this project to learn and understand about the complex frontend behaviors and backend security.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🎨 Frontend technique's
+*   **Dynamic Carousels:** build both **vertical and horizontal sliders** for sleek content discovery without cluttering the viewport.
+*   **Intelligent Navigation:** Implemented a "Smart Nav" that detects scroll velocity. It hides during fast downward scrolls to maximize screen real estate and reappears instantly when you scroll up.
+*   **Floating Menus:** A modern, decoupled navbar with a floating action menu for a better desktop experience.
+*   **Media Integration:** Integrated **optimized video animations** to create a high-energy, interactive atmosphere.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🔐 Backend & Security
+*   **Google Provider Auth:** Implemented secure, industry-standard authentication using Google OAuth. Users can log in safely without me having to manage their passwords.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ⚙️ Installation & Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the repo**
+   ```bash
+   git clone [https://github.com/Abhishek-Dubey-akdy/Link_tree_clone.git](https://github.com/Abhishek-Dubey-akdy/Link_tree_clone.git)
+
+   cd Link_tree_clone
+   ```

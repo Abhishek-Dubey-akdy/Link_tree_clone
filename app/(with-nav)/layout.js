@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} overflow-x-clip`}
+        className={`${geistSans.variable} ${geistMono.variable} relative overflow-x-clip`}
       >
         <Navbar />
         {children}

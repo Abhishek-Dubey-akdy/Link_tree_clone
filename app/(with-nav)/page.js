@@ -1,8 +1,24 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useSearchParams } from "next/navigation";
+import { OrbitProgress } from "react-loading-indicators";
+
+
+function SearchComponent() {
+  const searchParams = useSearchParams();
+  const msg = searchParams.get("message");
+
+  useEffect(() => {
+    if (msg === "Login Required") {
+      toast.error("login is required");
+      window.history.replaceState({}, "", "/");
+    }
+  }, [msg])
+
+  return <ToastContainer />;
+}
 
 
 export default function Home() {
@@ -12,7 +28,7 @@ export default function Home() {
   const [index, setIndex] = useState(0)
   const [isTransitioning, setTransitioning] = useState(true)
 
-  const images = ['/img1.WEBP', '/img2.JPG', '/img3.AVIF', '/img4.JPG', '/img5.JPG', '/img6.PNG']
+  const images = ['/img1.webp', '/img2.jpg', '/img3.avif', '/img4.jpg', '/img5.jpg', '/img6.png']
   const itemHeight = 500
   const itemWidth = 375
   const dispayImages = [...images, images[0], images[1]]
@@ -28,13 +44,13 @@ export default function Home() {
   const [isPage5Transitioning, setPage5transition] = useState(true)
 
   const Page5thDict = {
-    1: ['/page5_0.WEBP', 90, 20, true],
-    2: ['/page5_1.WEBP', 85, 125, false],
-    3: ['/page5_2.WEBP', 120, 45, true],
-    4: ['/page5_3.WEBP', 70, 15, false],
-    5: ['/page5_4.WEBP', 120, 250, true],
-    6: ['/page5_5.WEBP', 90, 150, false],
-    7: ['/page5_6.WEBP', 110, 75, true],
+    1: ['/page5_0.webp', 90, 20, true],
+    2: ['/page5_1.webp', 85, 125, false],
+    3: ['/page5_2.webp', 120, 45, true],
+    4: ['/page5_3.webp', 70, 15, false],
+    5: ['/page5_4.webp', 120, 250, true],
+    6: ['/page5_5.webp', 90, 150, false],
+    7: ['/page5_6.webp', 110, 75, true],
   }
 
   const DisplayDict_5th = { ...Page5thDict, 8: Page5thDict[1], 9: Page5thDict[2], 10: Page5thDict[3], 11: Page5thDict[4] }
@@ -46,19 +62,19 @@ export default function Home() {
 
   const featuredDict = {
     A: {
-      img: '/featured1.WEBP',
+      img: '/featured1.webp',
       tagLine: [`"Linktree simplifies the process for`, `creators to share multiple parts of`, `themselves in one inclusive link."`],
       name: "Riley Lemon,",
       job: "Youtuber, content creator"
     },
     B: {
-      img: '/featured2.WEBP',
+      img: '/featured2.webp',
       tagLine: [`"Linktree helps my customers`, `get where they need to go. it's`, `fast and easy."`],
       name: "Patti Chimkire,",
       job: "Founder and Pastry Chef, mali Bakes"
     },
     C: {
-      img: '/featured3.WEBP',
+      img: '/featured3.webp',
       tagLine: [`"I use Linktree's analytics to`, `better understand my`, `audience and what converts them."`],
       name: "Luke Kidgell,",
       job: "Comedian"
@@ -298,20 +314,11 @@ export default function Home() {
   }
 
 
-  const searchParams = useSearchParams();
-  const msg = searchParams.get("message");
-
-  useEffect(() => {
-    if (msg === "Login Required") {
-      toast.error("login is required");
-      window.history.replaceState({}, "", "/");
-    }
-  }, [msg])
-
-
   return (
     <>
-      <ToastContainer />
+    <Suspense fallback={<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"><OrbitProgress color="#185a35" size="medium" text="" textColor="" /></div>}>
+      <SearchComponent/>
+    </Suspense>
       <main className="lg:h-[140vh] min-h-screen w-full bg-[#d2e823] lg:grid lg:grid-cols-2">
         <section className=" lg:ml-[5vw] flex flex-col justify-center items-center lg:items-start">
           <div className="lg:text-[70px] mt-[20vh] lg:mt-0 text-[35px] text-[#254f1a] leading-none font-extrabold flex flex-col gap-1">
@@ -352,7 +359,7 @@ export default function Home() {
         <section className="flex items-center justify-center">
           <video className="lg:h-[80%] lg:pt-0 lg:pb-0 h-[80vh] lg:w-auto object-cover w-[95%]" autoPlay playsInline loop muted
             poster="https://cdn.prod.website-files.com/666255f7f2126f4e8cec6f8f/692eb9b488731835c528bb18_capture_1764669836574.webp" >
-            <source src="/customise_your_linktree.WEBM" type="video/webm" />
+            <source src="/customise_your_linktree.webm" type="video/webm" />
             <source src="https://assets.production.linktr.ee/static/curate/customise_your_linktree.mp4" type="video/mp4" />
           </video>
         </section>
@@ -386,7 +393,7 @@ export default function Home() {
         </section>
         <section className="flex justify-center items-center">
           <video className="h-[80%] w-auto mix-blend-screen" autoPlay playsInline loop muted >
-            <source src="/miai_bg.MP4" type="video/mp4" />
+            <source src="/miai_bg.mp4" type="video/mp4" />
           </video>
         </section>
       </div>
@@ -395,7 +402,7 @@ export default function Home() {
 
       <div className="min-h-screen bg-[#e8efd6] flex flex-col-reverse lg:grid lg:grid-cols-2">
         <section className="h-full w-full flex justify-center items-center ">
-          <img className="h-[80%] object-cover" src="/4thPageImg.AVIF" alt="4 page image" />
+          <img className="h-[80%] object-cover" src="/4thPageImg.avif" alt="4 page image" />
         </section>
 
         <section className="flex flex-col justify-center gap-8">
@@ -465,16 +472,16 @@ export default function Home() {
         <section className="min-h-[125vh] lg:grid lg:grid-cols-2 mt-[8vh] lg:mx-[3vw]">
           <div className="flex flex-col">
             <div className="lg:h-1/2 bg-[#e9c0e9] m-3.75 lg:mr-0 lg:rounded-[30px] rounded-lg">
-              <img className="h-[50%] w-[90%] mx-auto mt-[6%] object-contain" src="/3blockImg_2.AVIF" alt="photo2" />
+              <img className="h-[50%] w-[90%] mx-auto mt-[6%] object-contain" src="/3blockImg_2.avif" alt="photo2" />
               <p className="font-bold leading-none text-[#202020] lg:text-3xl text-xl p-4 py-6 lg:p-10">Share every type of content in limitless ways</p>
             </div>
             <div className="h-1/2 bg-[#d2e823] m-3.75 mb-0 lg:mb-3.75 mt-0 lg:mr-0 lg:not-open:rounded-[30px] rounded-lg">
-              <img className="h-[55%] w-[90%] mt-[6%] mx-auto object-contain" src="/3blockImg_3.AVIF" alt="photo3" />
+              <img className="h-[55%] w-[90%] mt-[6%] mx-auto object-contain" src="/3blockImg_3.avif" alt="photo3" />
               <p className="font-bold text-[#202020] lg:text-3xl text-xl p-4 py-6 lg:p-10">Sell products, collect payments ad make monetization simple</p>
             </div>
           </div>
           <div className="bg-[#061492] m-3.75 lg:rounded-[30px] rounded-lg">
-            <img className="h-[85%] w-[80%] mx-auto object-contain" src="/3blockImg_1.AVIF" alt="photo1" />
+            <img className="h-[85%] w-[80%] mx-auto object-contain" src="/3blockImg_1.avif" alt="photo1" />
             <p className="text-white font-bold lg:text-3xl text-xl p-10 py-2.5">Grow, own and engage your audience across all of your channels</p>
           </div>
         </section>
@@ -495,21 +502,21 @@ export default function Home() {
           <div className="flex flex-col mt-3 h-[60%] w-full">
             <div className="flex m-2 h-1/2 lg:gap-5 gap-2 justify-center items-center">
               <div className="bg-white h-[80%] flex justify-center items-center rounded-[35px] lg:w-[20%] w-[25%]">
-                <img className="lg:w-[45%] w-[90%] object-contain" src="/featuredLogo1.AVIF" alt="phot01" />
+                <img className="lg:w-[45%] w-[90%] object-contain" src="/featuredLogo1.avif" alt="phot01" />
               </div>
               <div className="bg-white h-[80%] flex justify-center items-center rounded-[35px] lg:w-[20%] w-[30%]">
-                <img className="lg:w-[20%] w-[40%] object-contain" src="/featuredLogo2.AVIF" alt="phot02" />
+                <img className="lg:w-[20%] w-[40%] object-contain" src="/featuredLogo2.avif" alt="phot02" />
               </div>
               <div className="bg-white h-[80%] flex justify-center items-center rounded-[35px] lg:w-[20%] w-[30%]">
-                <img className="lg:w-[25%] w-[50%] object-contain" src="/featuredLogo3.AVIF" alt="phot03" />
+                <img className="lg:w-[25%] w-[50%] object-contain" src="/featuredLogo3.avif" alt="phot03" />
               </div>
             </div>
             <div className="flex m-2 h-1/2 gap-5 justify-center">
               <div className="bg-white h-[80%] flex justify-center items-center rounded-[35px] lg:w-[20%] w-[30%]">
-                <img className="lg:w-[35%] w-[70%] object-contain" src="/featuredLogo4.AVIF" alt="phot04" />
+                <img className="lg:w-[35%] w-[70%] object-contain" src="/featuredLogo4.avif" alt="phot04" />
               </div>
               <div className="bg-white h-[80%] flex justify-center items-center rounded-[35px] lg:w-[20%] w-[30%]">
-                <img className="lg:w-[35%] w-[70%] object-contain" src="/featuredLogo5.AVIF" alt="phot05" />
+                <img className="lg:w-[35%] w-[70%] object-contain" src="/featuredLogo5.avif" alt="phot05" />
               </div>
             </div>
           </div>
